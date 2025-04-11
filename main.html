@@ -492,7 +492,7 @@
         Salma Palma
         <div style="margin-left: auto; display: flex; gap: 10px;">
           <button class="input-tool-btn" title="Phone Call" id="phone-call-btn">📞</button>
-          <button class="input-tool-btn" title="Video Call">📹</button>
+          <button class="input-tool-btn" title="Video Call" id="video-call-btn">📹</button>
         </div>
       </div>
       <div class="messages">
@@ -659,6 +659,11 @@
       friendAvatar.src = "https://i.pravatar.cc/50?img=3"; // Replace with dynamic friend's avatar if needed
       friendName.textContent = "Salma Palma"; // Replace with dynamic friend's name if needed
       callDialogOverlay.style.display = 'flex';
+    });
+
+    // Video call button event listener
+    document.getElementById('video-call-btn').addEventListener('click', () => {
+      window.location.href = 'video_call.html';
     });
 
     // End call button event listener
