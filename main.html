@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat UI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1f2a38;
+      color: #fff;
+    }
+
+    .chat-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #151e2c;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .search-box {
+      background-color: #1f2a38;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      color: #fff;
+    }
+
+    .contact {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+      padding: 8px;
+      border-radius: 5px;
+      background-color: #1f2a38;
+      cursor: pointer;
+    }
+
+    .contact:hover {
+      background-color: #273344;
+    }
+
+    .contact img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    .main-chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: url('templates/background/main.webp') center center/cover no-repeat;
+      position: relative;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .message {
+      max-width: 60%;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin: 10px 0;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    .message.left {
+      background-color: #2b3a4c;
+      align-self: flex-start;
+    }
+
+    .message.right {
+      background-color: #3d66e0;
+      align-self: flex-end;
+      color: white;
+    }
+
+    .timestamp {
+      font-size: 0.75em;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      background-color: #1f2a38;
+      border-top: 1px solid #2a3b4f;
+      align-items: center;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #2b3a4c;
+      color: #fff;
+      outline: none;
+    }
+
+    .chat-input button {
+      background-color: #3d66e0;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin-left: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .input-tools {
+      display: flex;
+      gap: 8px;
+      margin-right: 10px;
+    }
+
+    .input-tool-btn {
+      background-color: transparent !important;
+      border: none;
+      color: #bbc6d5;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 3px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .input-tool-btn:hover {
+      color: #fff;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      background-color: #1f2a38;
+      border-bottom: 1px solid #2a3b4f;
+      font-weight: bold;
+    }
+
+    .header-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid #3d66e0;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background-color: #1f2a38;
+      border-bottom: 1px solid #2a3b4f;
+      margin-bottom: 10px;
+    }
+
+    .user-info .header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .user-info button {
+      margin-left: auto;
+      background-color: transparent;
+      border: none;
+      color: #bbc6d5;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: color 0.2s;
+    }
+
+    .user-info button:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="sidebar">
+      <div class="user-info">
+        <img src="https://i.pravatar.cc/36?img=4" alt="User Avatar" class="header-avatar" />
+        <div>
+          <div>Akbar</div>
+          <div style="font-size: 12px; color: #3d66e0;">Online</div>
+        </div>
+        <button class="input-tool-btn" title="Edit profile">✏️</button>
+      </div>
+      <input type="text" class="search-box" placeholder="Search chats"/>
+      <div class="contact">
+        <img src="https://i.pravatar.cc/36?img=1" alt="Avatar"/>
+        <div>
+          <div>Salima Palma</div>
+          <div style="font-size: 12px; color: gray;">Abzor: Sure, let's meet...</div>
+        </div>
+      </div>
+      <div class="contact">
+        <img src="https://i.pravatar.cc/36?img=2" alt="Avatar"/>
+        <div>
+          <div>Azam</div>
+          <div style="font-size: 12px; color: gray;">New design updates...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-chat">
+      <div class="header">
+        <img src="https://i.pravatar.cc/36?img=3" alt="User Avatar" class="header-avatar" />
+        Salima Palma
+      </div>
+      <div class="messages">
+        <div class="message left">
+          Hey! How are you doing? Would you like to meet for coffee tomorrow?
+          <div class="timestamp">10:30 AM</div>
+        </div>
+        <div class="message right">
+          Sure, that sounds great! How about 2 PM at the usual place?
+          <div class="timestamp">10:32 AM</div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <div class="input-tools">
+          <button class="input-tool-btn" title="Attach file">📎</button>
+        </div>
+        <input type="text" placeholder="Type a message..."/>
+        <button class="input-tool-btn" title="Add emoji" style="margin-left: 10px;">😊</button>
+        <button>➤</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

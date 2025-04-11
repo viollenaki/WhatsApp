@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login & Registration</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #2b2b2b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: none;
+      transition: all 0.5s ease;
+    }
+
+    .side-panel {
+      width: 50%;
+      background: #0c0f2c;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 30px;
+      transition: all 0.5s ease;
+    }
+
+    .side-panel h3 {
+      margin-bottom: 10px;
+    }
+
+    .side-panel button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: #4d9efc;
+      cursor: pointer;
+      font-size: 1em;
+      text-decoration: underline;
+    }
+
+    .form-container {
+      width: 50%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #fff;
+      transition: all 0.5s ease;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button.submit-btn {
+      padding: 12px;
+      background: #4d9efc;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-top: 10px;
+    }
+
+    .container.active .side-panel {
+      order: 2;
+    }
+
+    .container.active .form-container {
+      order: 1;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      
+      .side-panel, .form-container {
+        width: 100%;
+        height: 50%;
+      }
+      
+      .container.active .side-panel {
+        order: 1;
+      }
+      
+      .container.active .form-container {
+        order: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="side-panel">
+      <h3 id="panel-text">Нет учетной записи?</h3>
+      <button id="switch-btn">Зарегистрироваться</button>
+    </div>
+
+    <div class="form-container" id="form-content">
+      <!-- Форма будет меняться динамически -->
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const panelText = document.getElementById('panel-text');
+    const switchBtn = document.getElementById('switch-btn');
+    const formContent = document.getElementById('form-content');
+
+    const loginForm = `
+      <h2>Вход</h2>
+      <div class="input-group">
+        <input type="text" placeholder="Имя пользователя" required />
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Пароль" required />
+      </div>
+      <button class="submit-btn">Войти</button>
+    `;
+
+    const registerForm = `
+      <h2>Регистрация</h2>
+      <div class="input-group">
+        <input type="text" placeholder="Имя пользователя" required />
+      </div>
+      <div class="input-group">
+        <input type="email" placeholder="Email" required />
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Пароль" required />
+      </div>
+      <div class="input-group">
+        <input type="password" placeholder="Подтвердите пароль" required />
+      </div>
+      <button class="submit-btn">Зарегистрироваться</button>
+    `;
+
+    let isLogin = true;
+
+    function updateForm() {
+      if (isLogin) {
+        formContent.innerHTML = loginForm;
+        panelText.textContent = 'Нет учетной записи?';
+        switchBtn.textContent = 'Зарегистрироваться';
+        container.classList.remove('active');
+      } else {
+        formContent.innerHTML = registerForm;
+        panelText.textContent = 'Уже есть учетная запись?';
+        switchBtn.textContent = 'Войти';
+        container.classList.add('active');
+      }
+    }
+
+    switchBtn.addEventListener('click', () => {
+      isLogin = !isLogin;
+      updateForm();
+    });
+
+    updateForm();
+  </script>
+</body>
+</html>
