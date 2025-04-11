@@ -184,6 +184,12 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .user-info .header-avatar:hover {
+      border: 2px solid #3b82f6;
+      transform: scale(1.1);
     }
 
     .user-info button {
@@ -206,7 +212,7 @@
 <body>
   <div class="chat-container">
     <div class="sidebar">
-      <div class="user-info">
+      <div class="user-info" id="user-profile">
         <img src="https://i.pravatar.cc/36?img=4" alt="User Avatar" class="header-avatar" />
         <div>
           <div>Akbar</div>
@@ -256,5 +262,11 @@
       </div>
     </div>
   </div>
+
+  <script>
+    document.getElementById('user-profile').addEventListener('click', () => {
+      window.location.href = 'user_profile.html';
+    });
+  </script>
 </body>
 </html>

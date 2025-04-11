@@ -189,6 +189,16 @@
       }
     }
 
+    function navigateToMain() {
+      window.location.href = 'main.html';
+    }
+
+    document.addEventListener('click', (event) => {
+      if (event.target.classList.contains('submit-btn')) {
+        navigateToMain();
+      }
+    });
+
     switchBtn.addEventListener('click', () => {
       isLogin = !isLogin;
       updateForm();

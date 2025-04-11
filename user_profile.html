@@ -49,6 +49,12 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .profile-header img:hover {
+      border: 2px solid #3b82f6;
+      transform: scale(1.1);
     }
 
     .profile-info {
@@ -153,7 +159,9 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">← Profile Settings</div>
+    <div class="header">
+      <span id="back-to-main" style="cursor: pointer;">← Profile Settings</span>
+    </div>
 
     <div class="card">
       <div class="profile-header">
@@ -202,6 +210,11 @@
 
     <button class="save-button">Save Changes</button>
   </div>
+
+  <script>
+    document.getElementById('back-to-main').addEventListener('click', () => {
+      window.location.href = 'main.html';
+    });
+  </script>
 </body>
 </html>
-    
