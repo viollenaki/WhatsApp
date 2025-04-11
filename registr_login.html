@@ -195,7 +195,8 @@
 
     document.addEventListener('click', (event) => {
       if (event.target.classList.contains('submit-btn')) {
-        navigateToMain();
+        event.preventDefault(); // Prevent form submission
+        navigateToMain(); // Navigate to main.html
       }
     });
 

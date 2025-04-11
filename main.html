@@ -23,6 +23,14 @@
       width: 100vw;
     }
 
+    .chat-container.blurred {
+      filter: blur(5px);
+    }
+
+    .chat-container.shadowed {
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+    }
+
     .sidebar {
       width: 260px;
       background-color: #151e2c;
@@ -257,6 +265,190 @@
     .dropup-menu button:hover {
       background-color: #273344;
     }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background-color: #1f2a38;
+      padding: 20px;
+      border-radius: 10px;
+      width: 350px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal h3 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 18px;
+      position: relative;
+    }
+
+    .modal .close-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: none;
+      border: none;
+      color: #bbc6d5;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #2a3b4f;
+      background-color: #2b3a4c;
+      color: #fff;
+      outline: none;
+    }
+
+    .contact-list {
+      max-height: 250px;
+      overflow-y: auto;
+      margin: 15px 0;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .contact-item:hover {
+      background-color: #273344;
+    }
+
+    .contact-item img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-name {
+      font-weight: 500;
+    }
+
+    .contact-status {
+      font-size: 12px;
+      color: #a0aec0;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .modal-buttons button {
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      border: none;
+    }
+
+    .cancel-btn {
+      background-color: transparent;
+      color: #bbc6d5;
+      border: 1px solid #2a3b4f !important;
+    }
+
+    .cancel-btn:hover {
+      background-color: #273344;
+    }
+
+    .create-btn {
+      background-color: #3d66e0;
+      color: white;
+    }
+
+    .create-btn:hover {
+      background-color: #2b4ea0;
+    }
+
+    .radio-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .radio-container input[type="radio"] {
+      margin-right: 10px;
+      width: 16px;
+      height: 16px;
+      accent-color: #3d66e0;
+    }
+
+    /* New compact call dialog styles */
+    .call-dialog-overlay {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: none;
+      justify-content: center;
+      z-index: 1000;
+      padding-bottom: 20px;
+    }
+
+    .call-dialog {
+      background-color: #18191c;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+    }
+
+    .call-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .call-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: #2e3136;
+      color: white;
+      font-size: 18px;
+    }
+
+    .call-button.end-call {
+      background-color: #f04747;
+    }
   </style>
 </head>
 <body>
@@ -274,7 +466,7 @@
       <div class="contact">
         <img src="https://i.pravatar.cc/36?img=1" alt="Avatar"/>
         <div>
-          <div>Salima Palma</div>
+          <div>Salma Palma</div>
           <div style="font-size: 12px; color: gray;">Abzor: Sure, let's meet...</div>
         </div>
       </div>
@@ -297,7 +489,11 @@
     <div class="main-chat">
       <div class="header">
         <img src="https://i.pravatar.cc/36?img=3" alt="User Avatar" class="header-avatar" />
-        Salima Palma
+        Salma Palma
+        <div style="margin-left: auto; display: flex; gap: 10px;">
+          <button class="input-tool-btn" title="Phone Call" id="phone-call-btn">📞</button>
+          <button class="input-tool-btn" title="Video Call">📹</button>
+        </div>
       </div>
       <div class="messages">
         <div class="message left">
@@ -320,6 +516,39 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3>
+        Create New Chat
+        <button class="close-btn" onclick="closeModal()">✕</button>
+      </h3>
+      <p>You can find your friend here!</p>
+      <input type="text" placeholder="Search..." id="search-input" />
+      <div class="contact-list" id="contact-list">
+        <!-- Contact items will be populated here -->
+      </div>
+      <div class="modal-buttons">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="create-btn" onclick="startNewChat()">Create Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Updated Call Dialog -->
+  <div class="call-dialog-overlay" id="call-dialog-overlay">
+    <div class="call-dialog">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <img src="https://i.pravatar.cc/50?img=4" alt="User Avatar" class="call-avatar" id="user-avatar" />
+        <span style="margin-top: 10px; font-size: 14px;">You</span>
+      </div>
+      <button class="call-button end-call" title="End Call" style="margin: 0 20px;">✖</button>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <img src="" alt="Friend Avatar" class="call-avatar" id="friend-avatar" />
+        <span style="margin-top: 10px; font-size: 14px;" id="friend-name">Friend</span>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.getElementById('user-profile').addEventListener('click', () => {
       window.location.href = 'user_profile.html';
@@ -327,25 +556,114 @@
 
     const pencilBtn = document.getElementById('pencil-btn');
     const dropupMenu = document.getElementById('dropup-menu');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const chatContainer = document.querySelector('.chat-container');
+    const contactList = document.getElementById('contact-list');
+    const searchInput = document.getElementById('search-input');
+    const callDialogOverlay = document.getElementById('call-dialog-overlay');
+    
+    let selectedContact = null;
 
     pencilBtn.addEventListener('click', () => {
       dropupMenu.style.display = dropupMenu.style.display === 'flex' ? 'none' : 'flex';
     });
 
+    // Sample contacts data
+    const contacts = [
+      { id: 1, name: 'Salma Palma', status: 'Online', avatar: 'https://i.pravatar.cc/36?img=1' },
+      { id: 2, name: 'Azam', status: 'Online', avatar: 'https://i.pravatar.cc/36?img=2' },
+      { id: 3, name: 'Salma Palma', status: 'Online', avatar: 'https://i.pravatar.cc/36?img=3' },
+      { id: 4, name: 'Salma Palma', status: 'Online', avatar: 'https://i.pravatar.cc/36?img=5' }
+    ];
+
     function createNewChat() {
-      alert('Create New Chat clicked!');
-      // Add logic for creating a new chat
+      modalOverlay.style.display = 'flex';
+      chatContainer.classList.add('blurred', 'shadowed');
+      populateContacts();
+      dropupMenu.style.display = 'none';
     }
 
     function createNewGroup() {
-      alert('Create New Group clicked!');
-      // Add logic for creating a new group
+      alert('Create New Group functionality not implemented yet');
+      dropupMenu.style.display = 'none';
     }
 
+    function closeModal() {
+      modalOverlay.style.display = 'none';
+      chatContainer.classList.remove('blurred', 'shadowed');
+      selectedContact = null;
+    }
+
+    function populateContacts() {
+      contactList.innerHTML = '';
+      
+      const query = searchInput.value.toLowerCase();
+      const filteredContacts = contacts.filter(contact => 
+        contact.name.toLowerCase().includes(query)
+      );
+      
+      filteredContacts.forEach(contact => {
+        const contactItem = document.createElement('div');
+        contactItem.className = 'contact-item';
+        contactItem.innerHTML = `
+          <div class="radio-container">
+            <input type="radio" name="contact" id="contact-${contact.id}" ${selectedContact === contact.id ? 'checked' : ''}>
+          </div>
+          <img src="${contact.avatar}" alt="${contact.name}">
+          <div class="contact-info">
+            <div class="contact-name">${contact.name}</div>
+            <div class="contact-status">${contact.status}</div>
+          </div>
+        `;
+        
+        contactItem.addEventListener('click', () => {
+          const radio = contactItem.querySelector('input[type="radio"]');
+          radio.checked = true;
+          selectedContact = contact.id;
+        });
+        
+        contactList.appendChild(contactItem);
+      });
+    }
+
+    function startNewChat() {
+      if (selectedContact) {
+        const contact = contacts.find(c => c.id === selectedContact);
+        alert(`Starting new chat with ${contact.name}`);
+        closeModal();
+      } else {
+        alert('Please select a contact first');
+      }
+    }
+
+    searchInput.addEventListener('input', populateContacts);
+
+    // Close dropup menu when clicking outside
     document.addEventListener('click', (event) => {
-      if (!pencilBtn.contains(event.target) && !dropupMenu.contains(event.target)) {
+      if (!dropupMenu.contains(event.target) && event.target !== pencilBtn) {
         dropupMenu.style.display = 'none';
       }
+    });
+
+    // Handle click outside modal to close it
+    modalOverlay.addEventListener('click', (event) => {
+      if (event.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    // Phone call button event listener
+    document.getElementById('phone-call-btn').addEventListener('click', () => {
+      const friendAvatar = document.getElementById('friend-avatar');
+      const friendName = document.getElementById('friend-name');
+      friendAvatar.src = "https://i.pravatar.cc/50?img=3"; // Replace with dynamic friend's avatar if needed
+      friendName.textContent = "Salma Palma"; // Replace with dynamic friend's name if needed
+      callDialogOverlay.style.display = 'flex';
+    });
+
+    // End call button event listener
+    document.querySelector('.call-button.end-call').addEventListener('click', () => {
+      callDialogOverlay.style.display = 'none';
     });
   </script>
 </body>
